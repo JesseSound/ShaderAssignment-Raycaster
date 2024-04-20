@@ -14,7 +14,7 @@ public class Raycaster : MonoBehaviour
     {
         {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+        {1,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
         {1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
         {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -85,7 +85,7 @@ public class Raycaster : MonoBehaviour
             int stepY;
 
             int hit = 0;
-           
+
 
             if (rayDirX < 0)
             {
@@ -139,25 +139,43 @@ public class Raycaster : MonoBehaviour
             int drawEnd = lineHeight / 2 + screenHeight / 2;
             if (drawEnd >= screenHeight) drawEnd = screenHeight - 1;
 
-            Color color;
-            switch (worldMap[mapX, mapY])
+            for (int y = 0; y < screenHeight; y++)
             {
-                case 1: color = Color.red; break;
-                case 2: color = Color.green; break;
-                case 3: color = Color.blue; break;
-                case 4: color = Color.white; break;
-                default: color = Color.yellow; break;
+                // Check if the current pixel is within the wall's height
+                if (y >= drawStart && y <= drawEnd)
+                {
+                    Color color;
+                    switch (worldMap[mapX, mapY])
+                    {
+                        case 1: color = Color.red; break;
+                        case 2: color = Color.green; break;
+                        case 3: color = Color.blue; break;
+                        case 4: color = Color.white; break;
+                        default: color = Color.yellow; break;
+                    }
+
+                    // Shade sides differently
+                    if (side == 1) color /= 2;
+
+                    // Set the color for wall pixels
+                    pixels[y * screenWidth + x] = color;
+                }
+                else
+                {
+                    // Below the map (floor), color white
+                    if (y < drawStart)
+                    {
+                        pixels[y * screenWidth + x] = Color.black;
+                    }
+                    // Above the map (ceiling), color green
+                    else
+                    {
+                        pixels[y * screenWidth + x] = Color.cyan;
+                    }
+                }
             }
-
-            if (side == 1) color /= 2;
-
-            for (int y = drawStart; y < drawEnd; y++)
-            {
-                pixels[y * screenWidth + x] = color;
-            }
-        }
-
-        texture.SetPixels32(pixels);
+        } 
+                texture.SetPixels32(pixels);
         texture.Apply();
 
         oldTime = time;
