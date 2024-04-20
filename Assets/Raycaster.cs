@@ -155,7 +155,7 @@ public class Raycaster : MonoBehaviour
                     }
 
                     // Shade sides differently
-                    if (side == 1) color /= 2;
+                    if (side == 1) color *= 0.5f;
 
                     // Set the color for wall pixels
                     pixels[y * screenWidth + x] = color;
