@@ -5,7 +5,7 @@ public class Raycaster : MonoBehaviour
 {
     public Texture2D texture; // A texture to hold the rendered frame
     private Color32[] pixels; // Array to hold pixel colors
-
+    //define a screen width + height for no other reason than to do so. I GUESS we could define it based on the quad, but i digress
     private int screenWidth = 640;
     private int screenHeight = 480;
    
