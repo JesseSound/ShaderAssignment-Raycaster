@@ -58,11 +58,11 @@ public class Raycaster : MonoBehaviour
 
     private void Update()
     {
-
-        for (int i = 0; i < pixels.Length; i++)
-        {
-            pixels[i] = Color.black; 
-        }
+        //fixed the bug that required this code
+        //for (int i = 0; i < pixels.Length; i++)
+        //{
+          //  pixels[i] = Color.black; 
+       // }
         for (int x = 0; x < screenWidth; x++)
         {
             // Calculate ray position and direction
