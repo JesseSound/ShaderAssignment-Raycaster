@@ -52,8 +52,6 @@ public class Raycaster : MonoBehaviour
     {
         pixels = new Color32[screenWidth * screenHeight];
         texture = new Texture2D(screenWidth, screenHeight);
-
-        material = new Material(Shader.Find("Material")); 
         material.mainTexture = texture; // Assign our texture to the material's main texture
         
     }
