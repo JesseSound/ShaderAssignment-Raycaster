@@ -8,10 +8,9 @@ public class Raycaster : MonoBehaviour
 
     private int screenWidth = 640;
     private int screenHeight = 480;
-    private int mapWidth = 24;
-    private int mapHeight = 24;
+   
 
-    private int[,] worldMap = new int[,]
+    private int[,] worldMap =
     {
         {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
