@@ -24,7 +24,7 @@ public class Raycaster : MonoBehaviour
         {1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+        {1,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,1},
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -56,14 +56,7 @@ public class Raycaster : MonoBehaviour
 
         material = new Material(Shader.Find("Material")); 
         material.mainTexture = texture; // Assign our texture to the material's main texture
-
-        // Create a quad that will act as our screen
-        GameObject screenQuad = GameObject.CreatePrimitive(PrimitiveType.Quad);
-        screenQuad.transform.SetParent(transform); // Set the quad as a child of this GameObject
-        screenQuad.transform.localPosition = new Vector3(0, 0, 1); // Move the quad slightly in front of the camera
-        screenQuad.GetComponent<Renderer>().material = material; // Assign the material to the quad's renderer
-
-        screen(screenWidth, screenHeight, 0, "Raycaster");
+        
     }
 
     private void Update()
@@ -71,7 +64,7 @@ public class Raycaster : MonoBehaviour
 
         for (int i = 0; i < pixels.Length; i++)
         {
-            pixels[i] = Color.black; // You can set it to any color you want
+            pixels[i] = Color.black; 
         }
         for (int x = 0; x < screenWidth; x++)
         {
@@ -217,8 +210,5 @@ public class Raycaster : MonoBehaviour
         material.mainTexture = texture;
     }
 
-    private void screen(int width, int height, int depth, string title)
-    {
-        
-    }
+    
 }
