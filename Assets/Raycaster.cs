@@ -206,7 +206,9 @@ public class Raycaster : MonoBehaviour
                 // Apply shading for side walls
                 if (side == 1)
                 {
-                    color = new Color32((byte)(color.r * 0.5f), (byte)(color.g * 0.5f), (byte)(color.b * 0.5f), color.a);
+                    //we're shifting each color component (r, g, b) to the right by 1 bit and then creating a new Color32 instance with the shifted values. This will effectively darken each color component by halving its value.
+                    color = new Color32((byte)(color.r >> 1), (byte)(color.g >> 1), (byte)(color.b >> 1), color.a);
+
                 }
 
                 // Set the pixel color for the entire column
@@ -262,12 +264,12 @@ public class Raycaster : MonoBehaviour
                 Color32 floorColor = textures[4][texWidth * floorTexY + floorTexX];
                 floorColor = new Color32((byte)(floorColor.r * 0.5f), (byte)(floorColor.g * 0.5f), (byte)(floorColor.b * 0.5f), floorColor.a);
 
-                // Ceiling (just a solid color for now)
-                Color32 ceilingColor = new Color32(128, 128, 128, 255);
+                // Ceiling 
+                Color32 ceilingColor = textures[2][texWidth * floorTexY + floorTexX];
 
                 // Set floor and ceiling colors
-                pixels[y * screenWidth + x] = floorColor;
-                pixels[(screenHeight - y - 1) * screenWidth + x] = ceilingColor;
+                pixels[y * screenWidth + x] = ceilingColor;
+                pixels[(screenHeight - y - 1) * screenWidth + x] = floorColor;
             }
         }
 
