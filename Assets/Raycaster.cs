@@ -83,7 +83,7 @@ public class Raycaster : MonoBehaviour
                         case 2: textures[i][texWidth * y + x] = new Color32(255, (byte)xycolor, (byte)xycolor, 255); break; // Yellow gradient
                         case 3: textures[i][texWidth * y + x] = new Color32((byte)xorcolor, (byte)xorcolor, (byte)xorcolor, 255); break; // XOR greyscale
                         case 4: textures[i][texWidth * y + x] = new Color32(0, (byte)xorcolor, 0, 255); break; // XOR green
-                        case 5: textures[i][texWidth * y + x] = new Color32(255, 0, 0, 255); break; // Red bricks
+                        case 5: textures[i][texWidth * y + x] = new Color32(((x / 8) % 2 != 0 ^ (y / 8) % 2 != 0) ? (byte)192 : (byte)255, (byte)192, (byte)192, 255); break; // Red bricks
                         case 6: textures[i][texWidth * y + x] = new Color32(255, (byte)ycolor, 0, 255); break; // Red gradient
                         case 7: textures[i][texWidth * y + x] = new Color32(128, 128, 128, 255); break; // Grey
                     }
@@ -265,7 +265,7 @@ public class Raycaster : MonoBehaviour
                 floorTexY = (int)(currentFloorY * texHeight) % texHeight;
 
                 // Floor texture
-                Color32 floorColor = textures[4][texWidth * floorTexY + floorTexX];
+                Color32 floorColor = textures[5][texWidth * floorTexY + floorTexX];
                 floorColor = new Color32((byte)(floorColor.r * 0.5f), (byte)(floorColor.g * 0.5f), (byte)(floorColor.b * 0.5f), floorColor.a);
 
                 // Ceiling 
