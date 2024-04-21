@@ -266,7 +266,7 @@ public class Raycaster : MonoBehaviour
 
                 // Floor texture
                 Color32 floorColor = textures[5][texWidth * floorTexY + floorTexX];
-                floorColor = new Color32((byte)(floorColor.r * 0.5f), (byte)(floorColor.g * 0.5f), (byte)(floorColor.b * 0.5f), floorColor.a);
+                //floorColor = new Color32((byte)(floorColor.r * 0.5f), (byte)(floorColor.g * 0.5f), (byte)(floorColor.b * 0.5f), floorColor.a);
 
                 // Ceiling 
                 Color32 ceilingColor = textures[2][texWidth * floorTexY + floorTexX];
