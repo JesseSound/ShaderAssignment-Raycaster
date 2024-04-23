@@ -164,8 +164,16 @@ public class Raycaster : MonoBehaviour
                     side = 1;
                 }
 
-                if (worldMap[mapX, mapY] > 0)
-                    hit = 1;
+                if (mapX >= 0 && mapX < worldMap.GetLength(0) && mapY >= 0 && mapY < worldMap.GetLength(1))
+                {
+                    if (worldMap[mapX, mapY] > 0)
+                        hit = 1;
+                }
+                else
+                {
+                    Debug.LogError("Index out of bounds: mapX=" + mapX + ", mapY=" + mapY);
+                }
+
             }
 
             if (side == 0)
@@ -320,7 +328,21 @@ public class Raycaster : MonoBehaviour
             planeX = planeX * Mathf.Cos((float)rotSpeed) - planeY * Mathf.Sin((float)rotSpeed);
             planeY = oldPlaneX * Mathf.Sin((float)rotSpeed) + planeY * Mathf.Cos((float)rotSpeed);
         }
+        if (Input.GetKey(KeyCode.Space))
+        {
+            // Calculate the tile coordinates based on the direction you're facing
+            int tileX = (int)(posX + dirX);
+            int tileY = (int)(posY + dirY);
 
+            // Check if the calculated tile coordinates are within the world map bounds
+            if (tileX >= 0 && tileX < worldMap.GetLength(0) && tileY >= 0 && tileY < worldMap.GetLength(1))
+            {
+                worldMap[tileX, tileY] = 1;
+                worldMap[tileX +1, tileY+1] = 1;
+                worldMap[tileX -1, tileY+1] = 1;
+                worldMap[tileX, tileY+2] = 1;
+            }
+        }
         // Assign the texture to the material for display
         material.mainTexture = texture;
 
