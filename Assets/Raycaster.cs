@@ -51,10 +51,12 @@ public class Raycaster : MonoBehaviour
     private double planeX = 0;
     private double planeY = 0.66;
     public Material material;
-   /*outdated logic
-   private double time = 0;
-    private double oldTime = 0;
-   */
+    public Texture2D pngTexture;
+    Color32[] _png;
+    /*outdated logic
+    private double time = 0;
+     private double oldTime = 0;
+    */
     int side;
     private uint[,] buffer; //maybe not needed?
 
@@ -62,6 +64,23 @@ public class Raycaster : MonoBehaviour
 
     private void Start()
     {
+        // Check if the texture is assigned
+        if (pngTexture != null)
+        {
+            // Convert the PNG texture to Color32 array
+            Color32[] colors = pngTexture.GetPixels32();
+
+            // Do something with the Color32 array, for example, print the color of the first pixel
+            if (colors.Length > 0)
+            {
+                _png = colors;
+                textures.Add(_png);
+            }
+        }
+        else
+        {
+            Debug.LogError("No PNG texture assigned!");
+        }
         pixels = new Color32[screenWidth * screenHeight];
         texture = new Texture2D(screenWidth, screenHeight);
         material.mainTexture = texture; // Assign our texture to the material's main texture
@@ -79,7 +98,7 @@ public class Raycaster : MonoBehaviour
                     int xycolor = y * 128 / texHeight + x * 128 / texWidth;
                     switch (i)
                     {
-                        case 0: textures[i][texWidth * y + x] = new Color32((byte)xorcolor, (byte)xorcolor, (byte)xorcolor, 255); break; // Red
+                        case 0: textures[i] = _png;  break; 
                         case 1: textures[i][texWidth * y + x] = new Color32((byte)xycolor, (byte)xycolor, (byte)xycolor, 255); break; // Greyscale
                         case 2: textures[i][texWidth * y + x] = new Color32(255, (byte)xycolor, (byte)xycolor, 255); break; // Yellow gradient
                         case 3: textures[i][texWidth * y + x] = new Color32((byte)xorcolor, (byte)xorcolor, (byte)xorcolor, 255); break; // XOR greyscale
