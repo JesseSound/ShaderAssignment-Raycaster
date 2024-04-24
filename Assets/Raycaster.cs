@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.IMGUI.Controls.PrimitiveBoundsHandle;
+//using static UnityEditor.IMGUI.Controls.PrimitiveBoundsHandle;
 
 public class Raycaster : MonoBehaviour
 {
     public Texture2D texture; // A texture to hold the rendered frame
     private Color32[] pixels; // Array to hold pixel colors
     //define a screen width + height for no other reason than to do so. I GUESS we could define it based on the quad, but i digress
-    private int screenWidth = 640;
-    private int screenHeight = 480;
+    private int screenWidth = 1280 ;
+    private int screenHeight = 720 ;
     int texHeight = 64;
     int texWidth = 64;
 
@@ -347,7 +347,7 @@ public class Raycaster : MonoBehaviour
             planeX = planeX * Mathf.Cos((float)rotSpeed) - planeY * Mathf.Sin((float)rotSpeed);
             planeY = oldPlaneX * Mathf.Sin((float)rotSpeed) + planeY * Mathf.Cos((float)rotSpeed);
         }
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             // Calculate the tile coordinates based on the direction you're facing
             int tileX = (int)(posX + dirX);
@@ -356,10 +356,9 @@ public class Raycaster : MonoBehaviour
             // Check if the calculated tile coordinates are within the world map bounds
             if (tileX >= 0 && tileX < worldMap.GetLength(0) && tileY >= 0 && tileY < worldMap.GetLength(1))
             {
-                worldMap[tileX, tileY] = 1;
-                worldMap[tileX +1, tileY+1] = 1;
-                worldMap[tileX -1, tileY+1] = 1;
-                worldMap[tileX, tileY+2] = 1;
+                if(worldMap[tileX, tileY] == 0)
+                    worldMap[tileX, tileY] = 1;
+                
             }
         }
         // Assign the texture to the material for display
