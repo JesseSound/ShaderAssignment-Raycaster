@@ -51,7 +51,7 @@ public class Raycaster : MonoBehaviour
     private double planeX = 0;
     private double planeY = 0.66;
     public Material material;
-    public Texture2D pngTexture;
+    public Texture2D[] pngTexture;
     Color32[] _png;
     /*outdated logic
     private double time = 0;
@@ -67,19 +67,22 @@ public class Raycaster : MonoBehaviour
         // Check if the texture is assigned
         if (pngTexture != null)
         {
-            // Convert the PNG texture to Color32 array
-            Color32[] colors = pngTexture.GetPixels32();
-
-            // Do something with the Color32 array, for example, print the color of the first pixel
-            if (colors.Length > 0)
+            for (int pngCount = 0; pngCount < 7; pngCount++)
             {
-                _png = colors;
-                textures.Add(_png);
+                // Convert the PNG textures to Color32 array
+                Color32[] colors = pngTexture[pngCount].GetPixels32();
+
+                // Do something with the Color32 array, for example, print the color of the first pixel
+                if (colors.Length > 0)
+                {
+                    _png = colors;
+                    textures.Add(_png);
+                }
             }
         }
         else
         {
-            Debug.LogError("No PNG texture assigned!");
+            Debug.LogError("No PNG textures assigned!");
         }
         pixels = new Color32[screenWidth * screenHeight];
         texture = new Texture2D(screenWidth, screenHeight);
@@ -92,13 +95,17 @@ public class Raycaster : MonoBehaviour
             {
                 for (int y = 0; y < texHeight; y++)
                 {
-                    int xorcolor = (x * 256 / texWidth) ^ (y * 256 / texHeight);
+                    textures[i][texWidth * y + x] = textures[i][texWidth * y + x];
+
+
+                    /*out dated logic but worth keeping for study
+                     * int xorcolor = (x * 256 / texWidth) ^ (y * 256 / texHeight);
                     //int xcolor = x * 256 / texWidth;
                     int ycolor = y * 256 / texHeight;
                     int xycolor = y * 128 / texHeight + x * 128 / texWidth;
                     switch (i)
                     {
-                        case 0: textures[i] = _png;  break; 
+                        case 0: textures[i][texWidth * y + x] = textures[i][texWidth * y + x];  break; 
                         case 1: textures[i][texWidth * y + x] = new Color32((byte)xycolor, (byte)xycolor, (byte)xycolor, 255); break; // Greyscale
                         case 2: textures[i][texWidth * y + x] = new Color32(255, (byte)xycolor, (byte)xycolor, 255); break; // Yellow gradient
                         case 3: textures[i][texWidth * y + x] = new Color32((byte)xorcolor, (byte)xorcolor, (byte)xorcolor, 255); break; // XOR greyscale
@@ -106,7 +113,9 @@ public class Raycaster : MonoBehaviour
                         case 5: textures[i][texWidth * y + x] = new Color32(((x / 8) % 2 != 0 ^ (y / 8) % 2 != 0) ? (byte)192 : (byte)255, (byte)192, (byte)192, 255); break; // Red bricks
                         case 6: textures[i][texWidth * y + x] = new Color32(255, (byte)ycolor, 0, 255); break; // Red gradient
                         case 7: textures[i][texWidth * y + x] = new Color32(128, 128, 128, 255); break; // Grey
+                    
                     }
+                    */
                 }
             }
 
@@ -207,7 +216,7 @@ public class Raycaster : MonoBehaviour
             int drawEnd = lineHeight / 2 + screenHeight / 2;
             if (drawEnd >= screenHeight) drawEnd = screenHeight - 1;
 
-            int texNum = worldMap[mapX, mapY] - 1;
+            int texNum = worldMap[mapX, mapY] - 1; // important!!! this will set the texture shown minus one, keep in mind when building map
             double wallX;
             if (side == 0)
             {
@@ -293,11 +302,11 @@ public class Raycaster : MonoBehaviour
                 floorTexY = (int)(currentFloorY * texHeight) % texHeight;
 
                 // Floor texture
-                Color32 floorColor = textures[5][texWidth * floorTexY + floorTexX];
+                Color32 floorColor = textures[3][texWidth * floorTexY + floorTexX];
                 //floorColor = new Color32((byte)(floorColor.r * 0.5f), (byte)(floorColor.g * 0.5f), (byte)(floorColor.b * 0.5f), floorColor.a);
 
                 // Ceiling 
-                Color32 ceilingColor = textures[2][texWidth * floorTexY + floorTexX];
+                Color32 ceilingColor = textures[3][texWidth * floorTexY + floorTexX];
 
                 // Set floor and ceiling colors
                 pixels[y * screenWidth + x] = ceilingColor;
