@@ -419,9 +419,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 883989938eaa16741811465acd54370e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: 3789fc9357eefa54498ab2bbe22d1fa5, type: 3}
+  texture: {fileID: 0}
   material: {fileID: 2100000, guid: c87570b25bd9a3446a2f8c009b323d5a, type: 2}
-  pngTexture: {fileID: 0}
+  pngTexture: {fileID: 2800000, guid: 3789fc9357eefa54498ab2bbe22d1fa5, type: 3}
 --- !u!850595691 &1539546496
 LightingSettings:
   m_ObjectHideFlags: 0
