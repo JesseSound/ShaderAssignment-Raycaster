@@ -10,8 +10,8 @@ public class Raycaster : MonoBehaviour
     //define a screen width + height for no other reason than to do so. I GUESS we could define it based on the quad, but i digress
     private int screenWidth = 1280 ;
     private int screenHeight = 720 ;
-    int texHeight = 64;
-    int texWidth = 64;
+    int texHeight = 128;
+    int texWidth = 128;
 
     private int[,] worldMap =
  {
