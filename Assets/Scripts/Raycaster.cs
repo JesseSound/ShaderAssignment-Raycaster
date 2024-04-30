@@ -69,15 +69,17 @@ public class Raycaster : MonoBehaviour
         {
             for (int pngCount = 0; pngCount < 7; pngCount++)
             {
-                // Convert the PNG textures to Color32 array
-                Color32[] colors = pngTexture[pngCount].GetPixels32();
+                // Get the original PNG texture
+                Texture2D originalTexture = pngTexture[pngCount];
 
-                // Do something with the Color32 array, for example, print the color of the first pixel
-                if (colors.Length > 0)
-                {
-                    _png = colors;
-                    textures.Add(_png);
-                }
+                // Resize the texture
+                Texture2D resizedTexture = ResizeTexture(originalTexture, texWidth, texHeight);
+
+                // Convert the resized texture to a Color32 array
+                Color32[] colors = resizedTexture.GetPixels32();
+
+                // Add the Color32 array to the list
+                textures.Add(colors);
             }
         }
         else
@@ -123,7 +125,25 @@ public class Raycaster : MonoBehaviour
         }
 
     }
+    //Logic to resize images so I don't need a website to do it
+    private Texture2D ResizeTexture(Texture2D originalTexture, int newWidth, int newHeight)
+    {
+        Texture2D resizedTexture = new Texture2D(newWidth, newHeight, TextureFormat.RGBA32, false);
 
+        Color[] pixels = new Color[newWidth * newHeight];
+        for (int y = 0; y < newHeight; y++)
+        {
+            for (int x = 0; x < newWidth; x++)
+            {
+                pixels[y * newWidth + x] = originalTexture.GetPixelBilinear((float)x / newWidth, (float)y / newHeight);
+            }
+        }
+
+        resizedTexture.SetPixels(pixels);
+        resizedTexture.Apply();
+
+        return resizedTexture;
+    }
     private void Update()
     {
         // Clear the screen to black, but don't need this currently
