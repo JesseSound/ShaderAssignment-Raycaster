@@ -71,15 +71,24 @@ public class Raycaster : MonoBehaviour
             {
                 // Get the original PNG texture
                 Texture2D originalTexture = pngTexture[pngCount];
+                // Check if the texture is already the desired size
+                if (originalTexture.width == texWidth && originalTexture.height == texHeight)
+                {
+                    // If it's already the same size, add it directly to the list
+                    Color32[] colors = originalTexture.GetPixels32();
+                    textures.Add(colors);
+                }
+                else
+                {
+                    // Resize the texture
+                    Texture2D resizedTexture = ResizeTexture(originalTexture, texWidth, texHeight);
 
-                // Resize the texture
-                Texture2D resizedTexture = ResizeTexture(originalTexture, texWidth, texHeight);
+                    // Convert the resized texture to a Color32 array
+                    Color32[] colors = resizedTexture.GetPixels32();
 
-                // Convert the resized texture to a Color32 array
-                Color32[] colors = resizedTexture.GetPixels32();
-
-                // Add the Color32 array to the list
-                textures.Add(colors);
+                    // Add the Color32 array to the list
+                    textures.Add(colors);
+                }
             }
         }
         else
