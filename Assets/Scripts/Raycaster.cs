@@ -310,7 +310,7 @@ public class Raycaster : MonoBehaviour
             }
 
             double distWall = perpWallDist;
-            double distPlayer = 0.0;
+          
 
             if (drawEnd < 0)
             {
@@ -321,7 +321,7 @@ public class Raycaster : MonoBehaviour
             {
                 double currentDist = screenHeight / (2.0 * y - screenHeight);
 
-                double weight = (currentDist - distPlayer) / (distWall - distPlayer);
+                double weight = (currentDist) / (distWall);
 
                 double currentFloorX = weight * floorXWall + (1.0 - weight) * posX;
                 double currentFloorY = weight * floorYWall + (1.0 - weight) * posY;
