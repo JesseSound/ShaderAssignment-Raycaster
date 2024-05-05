@@ -99,9 +99,9 @@ public class Raycaster : MonoBehaviour
         texture = new Texture2D(screenWidth, screenHeight);
         material.mainTexture = texture; // Assign our texture to the material's main texture
           buffer = new uint[screenHeight, screenWidth];
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 7; i++)
         {
-            textures.Add(new Color32[texWidth * texHeight]);
+          //  textures.Add(new Color32[texWidth * texHeight]);
             for (int x = 0; x < texWidth; x++)
             {
                 for (int y = 0; y < texHeight; y++)
