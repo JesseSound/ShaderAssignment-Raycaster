@@ -353,23 +353,23 @@ public class Raycaster : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W))
         {
-            if (worldMap[(int)(posX + dirX * moveSpeed), (int)posY] == 0)
+            if (worldMap[(int)(posX + dirX + 0.2f), (int)posY]  == 0 && worldMap[(int)(posX + dirX + 0.2f), (int)posY] < worldMap.GetLength(0) && worldMap[(int)(posX + dirX + 0.2f), (int)posY] < worldMap.GetLength(1))
                 posX += dirX * moveSpeed;
-            if (worldMap[(int)posX, (int)(posY + dirY * moveSpeed)] == 0)
+            if (worldMap[(int)posX, (int)(posY + dirY +0.2f)] == 0 && worldMap[(int)(posX + dirX + 0.2f), (int)posY] < worldMap.GetLength(0) && worldMap[(int)(posX + dirX + 0.2f), (int)posY] < worldMap.GetLength(1))
                 posY += dirY * moveSpeed;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            if (worldMap[(int)(posX - dirX * moveSpeed), (int)posY] == 0)
+            if (worldMap[(int)(posX - dirX ), (int)posY] == 0)
                 posX -= dirX * moveSpeed;
-            if (worldMap[(int)posX, (int)(posY - dirY * moveSpeed)] == 0)
+            if (worldMap[(int)posX, (int)(posY - dirY)] == 0)
                 posY -= dirY * moveSpeed;
         }
         if (Input.GetKey(KeyCode.D))
         {
             double oldDirX = dirX;
-            dirX = dirX * Mathf.Cos((float)-rotSpeed) - dirY * Mathf.Sin((float)-rotSpeed);
-            dirY = oldDirX * Mathf.Sin((float)-rotSpeed) + dirY * Mathf.Cos((float)-rotSpeed);
+            dirX = dirX * Mathf.Cos((float)-rotSpeed) - dirY * Mathf.Sin((float)-rotSpeed) ;
+            dirY = oldDirX * Mathf.Sin((float)-rotSpeed) + dirY * Mathf.Cos((float)-rotSpeed) ;
 
             double oldPlaneX = planeX;
             planeX = planeX * Mathf.Cos((float)-rotSpeed) - planeY * Mathf.Sin((float)-rotSpeed);
@@ -379,7 +379,7 @@ public class Raycaster : MonoBehaviour
         {
             double oldDirX = dirX;
             dirX = dirX * Mathf.Cos((float)rotSpeed) - dirY * Mathf.Sin((float)rotSpeed);
-            dirY = oldDirX * Mathf.Sin((float)rotSpeed) + dirY * Mathf.Cos((float)rotSpeed);
+            dirY = oldDirX * Mathf.Sin((float)rotSpeed) + dirY * Mathf.Cos((float)rotSpeed) ;
 
             double oldPlaneX = planeX;
             planeX = planeX * Mathf.Cos((float)rotSpeed) - planeY * Mathf.Sin((float)rotSpeed);
