@@ -353,16 +353,16 @@ public class Raycaster : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W))
         {
-            if (worldMap[(int)(posX + dirX * moveSpeed), (int)posY] == 0)
+            if (worldMap[(int)(posX + dirX), (int)posY] == 0)
                 posX += dirX * moveSpeed;
-            if (worldMap[(int)posX, (int)(posY + dirY * moveSpeed)] == 0)
+            if (worldMap[(int)posX, (int)(posY + dirY)] == 0)
                 posY += dirY * moveSpeed;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            if (worldMap[(int)(posX - dirX * moveSpeed), (int)posY] == 0)
+            if (worldMap[(int)(posX - dirX), (int)posY] == 0)
                 posX -= dirX * moveSpeed;
-            if (worldMap[(int)posX, (int)(posY - dirY * moveSpeed)] == 0)
+            if (worldMap[(int)posX, (int)(posY - dirY)] == 0)
                 posY -= dirY * moveSpeed;
         }
         if (Input.GetKey(KeyCode.D))
